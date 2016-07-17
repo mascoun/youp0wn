@@ -1,0 +1,13 @@
+[user]
+    name = Loez
+    email = gabdelmoez@gmail.com
+[core]
+    editor = nano
+    whitespace = off
+    excludesfile = ~/.gitignore
+[advice]
+    statusuoption = false
+[color]
+    ui = true
+[push]
+    default = current
