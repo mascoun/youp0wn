@@ -1,0 +1,14 @@
+<h1>You P0WN</h1>
+
+<p>Hi <%= @user.firstname %> <%= @user.lastname %>,</p>
+
+<p>
+You received an invitation to join a team.
+Click to the link below to join.
+</p>
+
+<%= link_to "Join", contest_team_join_url(@team.contest,@team,@team.join_digest) %>
+
+<p>
+    Thank you.
+</p>

@@ -13,4 +13,12 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
+//= require bootstrap
+//= require bootstrap-dialog.min
+//= require moment
+//= require bootstrap-datetimepicker.min
+//= require jquery.plugin
+//= require jquery.countdown
+//= require jquery.tokeninput
+//= require cable
+//= require app

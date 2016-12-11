@@ -1,0 +1,66 @@
+
+<% provide(:title, 'New Team') %>
+
+  <div class="row">
+    <div class="col-md-8">
+
+        <h1 class="entry-title"><span>New Team</span> </h1>
+        <hr>
+  <%= form_for(@team, url: contest_teams_path, html: { class: "form-horizontal"}) do |f| %>
+
+<% if @team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% @team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+ <div class="form-group">
+        <%= f.label :name, 'Username <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :name, class: "form-control", placeholder: "Team Name" %>
+          </div>
+        </div>
+
+         <div class="form-group">
+        <%= f.label :leader, 'Team Leader <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :leader, class: "form-control", placeholder: "Team Leader", value: current_user.username, disabled: true%>
+          </div>
+        </div>
+
+         <div class="form-group">
+        <%= f.label :member, 'Team Members'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :member, class: "form-control", id: "members" ,placeholder: "usernames of the team members...", value: ""%>
+          </div>
+        </div>
+        <script type="text/javascript">
+              $("#members").tokenInput("/users/json",{
+                theme: "facebook",
+                preventDuplicates: true,
+                tokenLimit: 3,
+                resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.firstname + " " + item.lastname + "</div><div class='email'>" + item.name + "</div></div></li>" },
+                tokenFormatter: function(item) { return "<li><p>" + item.firstname + " <b style='color: red'>" + item.lastname + "</b></p></li>" }
+              });
+        </script>
+ <div class="form-group">
+          <div class="col-xs-offset-3 col-xs-10">
+                  <%= f.submit class: "btn btn-primary"%>
+                  <%= link_to 'Back', contest_teams_path , class: "btn btn-default" %>
+          </div>
+</div>
+
+
+
+<% end %>
+</div>
+</div>
+

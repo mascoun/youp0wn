@@ -1,0 +1,13 @@
+<h1>You P0WN</h1>
+
+<p>Hi <%= @user.firstname %> <%= @user.lastname %>,</p>
+
+<p>
+Welcome to You P0WN! Please click on the link below to activate your account:
+</p>
+
+<%= link_to "Activate", edit_account_activation_url(@user.activation_token,  email: @user.email) %>
+
+<p>
+    Thank you.
+</p>

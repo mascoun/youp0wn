@@ -1,0 +1,5 @@
+Hi <%= @user.firstname %> <%= @user.lastname %>,
+
+Welcome to You P0WN! Please click on the link below to activate your account:
+
+<%= edit_account_activation_url(@user.activation_token, email: @user.email) %>

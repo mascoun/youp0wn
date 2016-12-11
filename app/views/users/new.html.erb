@@ -1,0 +1,106 @@
+<% provide(:title, 'Sign up') %>
+
+  <div class="row">
+    <div class="col-md-8">
+
+        <h1 class="entry-title"><span>Sign Up</span> </h1>
+        <hr>
+    <%= form_for(@user,:url => signup_path, html: { class: "form-horizontal", id:"signup"}) do |f| %>
+
+     <% if @user.errors.any? %>
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@user.errors.count, "error") %>.
+
+      <ul>
+      <% @user.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+    <% end %>
+
+
+        <div class="form-group">
+        <%= f.label :username, 'Username <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+      <%= f.text_field :username, class: "form-control", placeholder: "Username" %>
+ </div>
+          </div>
+        </div>
+
+
+<div class="form-group">
+        <%= f.label :email, 'Email <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+      <%= f.email_field :email,  class: "form-control", placeholder: "You Email address" %>
+ </div>
+            <small> Your Email Id is being used for ensuring the security of your account, authorization and access recovery. </small> </div>
+        </div>
+
+
+<div class="form-group">
+        <%= f.label :password, 'Password <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <%= f.password_field :password, class: "form-control", placeholder: "Choose password (5-15 chars)" %>
+ </div>
+ </div>
+        </div>
+
+<div class="form-group">
+        <%= f.label :password_confirmation, 'Confirm Password <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+              <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+      <%= f.password_field :password, class: "form-control", placeholder: "Confirm your password" %>
+ </div>
+ </div>
+        </div>
+
+
+<div class="form-group">
+        <%= f.label :firstname, 'First Name <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :firstname, class: "form-control", placeholder: "Enter your First Name Here" %>
+ </div>
+        </div>
+
+<div class="form-group">
+        <%= f.label :lastname, 'Last Name <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :lastname, class: "form-control", placeholder: "Enter your Last Name Here" %>
+ </div>
+        </div>
+
+<div class="form-group">
+        <%= f.label :school, 'School Name <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :school, class: "form-control", placeholder: "Enter your School Name Here" %>
+ </div>
+        </div>
+
+<div class="form-group">
+<label class="control-label col-sm-3">Security Code <span class="text-danger">*</span></label>
+ <div class="col-md-8 col-sm-9">
+    <%= recaptcha_tags %>
+    </div>
+</div>
+        <div class="form-group">
+          <div class="col-xs-offset-3 col-md-8 col-sm-9"><span class="text-muted"><span class="label label-danger">Note</span> By clicking Sign Up, you agree to our <a href="#">Terms</a> and that you have read our <a href="#">Policy</a>, including our <a href="#">Cookie Use</a>.</span> </div>
+        </div>
+        <div class="form-group">
+          <div class="col-xs-offset-3 col-xs-10">
+            <%= f.submit value:"Sign Up", class:"btn btn-primary" %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+
+</div>

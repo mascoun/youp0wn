@@ -1,0 +1,8 @@
+You P0WN
+Hi <%= @user.firstname %> <%= @user.lastname %>
+
+
+You received an invitation to join a team.
+Click to the link below to join.
+
+<%= link_to "Join", contest_team_join_url(@team.contest,@team,@team.join_digest) %>

@@ -1,0 +1,90 @@
+     <div class="row">
+        <div class="col-md-12">
+
+<h1>New Challenge</h1>
+
+   <hr>
+<%= form_for(@challenge, html: { class: "form-horizontal"}) do |f| %>
+
+     <% if @challenge.errors.any? %>
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@challenge.errors.count, "error") %>.
+
+      <ul>
+      <% @challenge.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+    <% end %>
+
+
+        <div class="form-group">
+        <%= f.label :name, 'Challenge Name <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :name, class: "form-control", placeholder: "Contest Name" %>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :description, 'Challenge Description <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_area :description, class: "form-control", placeholder: "Contest Description" %>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :flag, 'Flag <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+               <div class="col-md-8 col-sm-9">
+      <%= f.date_field :flag, class: "form-control", placeholder: "Flag..." %>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :attachement, 'Attachement <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9" >
+
+      <%= f.date_field :attachement, class: "form-control", placeholder: "Attachement..." %>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+        <%= f.label :contest, 'Contest <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+    <%= f.select :contest_id, options_from_collection_for_select(Contest.all, :id, :name),class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+        <%= f.label :category, 'Category <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+    <%= f.select :category_id, options_from_collection_for_select(Category.all, :id, :name),class: "form-control" %>
+          </div>
+        </div>
+
+  <div class="form-group">
+          <div class="col-xs-offset-3 col-xs-10">
+            <%= f.submit value:"Create Challenge", class:"btn btn-info" %>
+            <%= link_to 'Back', challenges_path, class:"btn btn-default" %>
+          </div>
+        </div>
+<% end %>
+
+
+
+
+
+
+
+</div>
+</div>

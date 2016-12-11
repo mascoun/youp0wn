@@ -1,0 +1,43 @@
+
+<div class="bg" style="background-color:#1E1614;"></div>
+<div class="jumbotron">
+  <h1><%= @challenge.name %></h1>
+  <p class="lead"> <%= @challenge.category.name %> <br/>
+  <%= @challenge.contest.name %>
+  </p>
+</div>
+<div class="row">
+<div class="col-md-12">
+<div class="col-md-8">
+<p>
+  <strong>Description:</strong>
+  <%= @challenge.description %>
+</p>
+
+ <% if not (@challenge.attachement.nil? or @challenge.attachement.empty?) %>
+<p>
+
+   <strong>Attachement:</strong>
+  <%= @challenge.attachement %>
+
+</p>
+<% end %>
+<%= form_for(@challengeTest, url: challenge_flag_url(@challenge), html: { class: "form-horizontal"}) do |f| %>
+<div class="form-group">
+        <%= f.label :flag, 'Flag <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :flag, class: "form-control", placeholder: "Entre the flag here..." %>
+          </div>
+</div>
+<div class="form-group">
+          <div class="col-xs-offset-3 col-xs-10">
+            <%= f.submit value: "Check Flag" , class:"btn btn-primary"%>
+            <%= link_to 'Back', contest_path(@challenge.contest), class:"btn btn-default" %>
+          </div>
+        </div>
+<% end %>
+
+</div>
+</div>
+</div>

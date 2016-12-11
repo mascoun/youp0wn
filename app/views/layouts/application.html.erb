@@ -1,18 +1,39 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title> you p0wn </title>
+    <title><%= full_title(yield(:title)) %></title>
+    <%= stylesheet_link_tag "application", media: "all",
+                                           "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
-    <%= stylesheet_link_tag    'application', media: 'all',
-                                              'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= render 'layouts/shim' %>
   </head>
   <body>
     <%= render 'layouts/header' %>
     <div class="container">
       <%= yield %>
+      <% if Rails.env.development? %>
+      <div class="row">
+        <div class="col-md-12">
+          <%= debug(params)  %>
+        </div>
+      </div>
+      <% end %>
       <%= render 'layouts/footer' %>
-    </div>
+      </div>
   </body>
-</html>
 
+  <% flash.each do |message_type, message| %>
+<script type="text/javascript">
+    $(function () {
+                    BootstrapDialog.show({
+                    type: BootstrapDialog.TYPE_<%= message_type.upcase %>,
+                    title: 'You P0WN',
+                    message: '<%= message %>'
+        });
+    });
+</script>
+<% end %>
+
+
+</html>

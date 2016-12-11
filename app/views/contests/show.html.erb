@@ -1,0 +1,88 @@
+<div class="bg" style="background-image: url(<%= contest_image_path(@contest) %>);"></div>
+<div class="jumbotron">
+  <h1><%= @contest.name %></h1>
+  <p class="lead"> <%= @contest.description %>
+  </p>
+<div class="col-md-12">
+<% if Time.now > @contest.begins and Time.now < @contest.begins %>
+<div data-toggle="countdown" data-time="<%= @contest.begins.to_time.strftime("%Y-%m-%d %H:%M:%S") %>"></div>
+<% end %>
+</div>
+</div>
+<script type="text/javascript">
+$(function () {
+$('[data-toggle="countdown"]').each(function() {
+    var momentDate = moment($(this).attr("data-time"), 'YYYY-MM-DD HH:mm:ss');
+    var newYear = momentDate.toDate();
+    $(this).countdown({until: newYear});
+});
+});
+</script>
+<div class="row">
+<% if logged_in? %>
+    <% if not has_team_in_contest(current_user,@contest) %>
+    <div class="col-md-12">
+         <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default panel-info">
+            <div class="panel-heading">You P0WN</div>
+          <div class="panel-body text-center">
+           <p>You need to join or create a team first</p>
+          <%= link_to "New Team",new_contest_team_url(@contest.id), class: "btn btn-primary" %>
+</div>
+            </div>
+    </div>
+    </div>
+    <% else %>
+    <div class="col-md-8">
+        <% if @contest.challenges.count != 0 %>
+        <table class="table challenges-table">
+            <% i = 0
+            @contest.challenges.each do |challenge|
+            %>
+            <tr>
+                <td><div class="number"> <%= i = i + 1 %>  </div></td>
+            <% if team_user(current_user,@contest).challenges_ids.include? challenge.id %>
+                <td><%= challenge.name %> <i class="glyphicon glyphicon-ok-circle challenge-done"></i>
+                    <div class="category">
+                        <% if not challenge.category.nil? %> <%= challenge.category.name %> <% end %>
+                    </div>
+                </td>
+
+            <%else %>
+                <td><%= link_to challenge.name,challenge %>
+                    <div class="category">
+                        <% if not challenge.category.nil? %> <%= challenge.category.name %> <% end %>
+                    </div>
+                </td>
+            <%end %>
+                <td><%= challenge.score %></td>
+                </tr>
+            <% end %>
+        </table>
+        <% end %>
+    </div>
+    <div class="col-md-4">
+        <div class="panel panel-default">
+            <div class="panel-hd text-center">Current Rank</div>
+          <div class="panel-body">
+            <table class="table">
+            <% i = 0
+            @contest.teams.order(score: :desc, fault: :desc).first(5).each do |team| %>
+                <tr>
+                    <td><%= i = i+1 %></td>
+                    <td><%= team.name %></td>
+                    <td><%= team.score %></td>
+                </tr>
+            <% end %>
+            </table>
+          </div>
+        </div>
+
+
+
+
+    </div>
+    <% end %>
+<% end %>
+
+</div>

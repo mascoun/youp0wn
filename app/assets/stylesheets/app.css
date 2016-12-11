@@ -1,0 +1,193 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,100,500,700);
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,300,700);
+@font-face {
+    font-family: FrankKnows;
+    src: url("Frank Knows.ttf");
+}
+
+
+body {
+  min-height: 300px;
+  padding-top: 70px;
+}
+
+
+.navbar-default {
+  background-color: #ffffff;
+  border-color: #ffffff;
+  background-image: none;
+  box-shadow:none;
+}
+.navbar-default .navbar-brand {
+  color: #000000;
+}
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+  color: #000000;
+}
+.navbar-default .navbar-text {
+  color: #000000;
+  font-weight: 900;
+  font-family: FrankKnows;
+  margin: 0;
+  float: none;
+  padding-right:30px;
+}
+.navbar-default .navbar-nav > li > a {
+  color: #000000;
+  font-weight: 700;
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+  color: #0088ff;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+  color: #0088ff;
+  background-color: #ffffff;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+  color: #0088ff;
+  background-color: #ffffff;
+}
+.navbar-default .navbar-toggle {
+  border-color: #ffffff;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #ffffff;
+}
+.navbar-default .navbar-toggle .icon-bar {
+  background-color: #000000;
+}
+.navbar-default .navbar-collapse,
+.navbar-default .navbar-form {
+  border-color: #000000;
+}
+.navbar-default .navbar-link {
+  color: #000000;
+}
+.navbar-default .navbar-link:hover {
+  color: #0088ff;
+}
+
+@media (max-width: 767px) {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #000000;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #0088ff;
+  }
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover,
+  .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: #0088ff;
+    background-color: #ffffff;
+  }
+}
+
+
+
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Condensed', sans-serif;
+  font-weight: 400;
+  color:#111;
+  margin-top:5px;
+  margin-bottom:5px;
+}
+h1, h2, h3 {
+  text-transform:uppercase;
+}
+
+input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 1;
+    filter: alpha(opacity=1);
+}
+
+.form-inline .form-group{
+    margin-left: 0;
+    margin-right: 0;
+}
+.control-label {
+    color:#333333;
+}
+
+
+
+.bg {
+  background-repeat: no-repeat;
+  background-position: center center;
+  position: absolute;
+  width: 100%;
+  height: 350px; /*same height as jumbotron */
+  top:0;
+  left:0;
+  z-index: -1;
+}
+
+.jumbotron {
+  height: 350px;
+  color: white;
+  text-shadow: #444 0 1px 1px;
+  background:transparent;
+}
+
+
+#video-background {
+  position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: hidden;
+    z-index: -100;
+    width:100%;
+    height: 350px;
+}
+
+.is-countdown {
+    border: none;
+    background-color: transparent;
+}
+
+
+.challenges-table tr td a {
+  font-weight: 700;
+  color: #000000;
+}
+.challenges-table tr td a:focus, .challenges-table tr td a:hover {
+  font-weight: 700;
+  color: #0088ff;
+  text-decoration: none;
+}
+.challenges-table tr td div.category, .challenges-table tr td div.number {
+  color: #808080;
+}
+
+.panel-hd {
+  color: #08f;
+    text-transform: capitalize;
+    padding: 25px 0;
+    font-size: 30px;
+    font-weight: 700;
+    min-height: 50px;
+}
+
+.challenge-done {
+background: #548DFE;
+border-radius: 50%;
+color:white;
+    font-size: 1.2em;
+}

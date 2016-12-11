@@ -1,0 +1,35 @@
+     <div class="row">
+        <div class="col-md-12">
+        <% if logged_in? && current_user.superuser? %>
+    <%= link_to 'New Contest', new_contest_path , class: "btn btn-info pull-right"%>
+        <% end %>
+<h1>Contests</h1>
+</div>
+
+<div class="col-md-12">
+<% if @contests.count == 0 %>
+ <div class="col-md-6 col-md-offset-3">
+<div class="panel panel-default panel-info">
+      <div class="panel-heading">You P0WN</div>
+      <div class="panel-body text-center">No Contest Found</div>
+    </div>
+</div>
+<% end %>
+<% @contests.each do |contest| %>
+<div class="bg" style="background-image: url(<%= contest_image_path(contest) %>);"></div>
+<div class="jumbotron">
+  <h1><%= contest.name %></h1>
+  <p class="lead"> <%= contest.description %></p>
+<%= link_to "Join contest!", contest_path(contest), class: "btn btn-lg btn-primary" if Time.now < contest.ends %>
+<div class="col-md-3 pull-right">
+Start on <%= contest.begins.to_time.strftime("%B %e at %l:%M"); %><br/>
+Ends on <%= contest.ends.to_time.strftime("%B %e at %l:%M"); %>
+</div>
+</div>
+<% end %>
+
+
+</div>
+</div>
+
+
