@@ -14,6 +14,12 @@ end
   def show
     @challenge = Challenge.find_by(id: params[:id])
     @contest = @challenge.contest
+    if not logged_in?
+      redirect_to @contest
+    end
+    if not has_team_in_contest(current_user,@contest)
+      redirect_to @contest
+    end
       if Time.now < @contest.begins
           flash[:notice] = "Contest haven't start yet."
           redirect_to contest_path(@contest)
@@ -39,24 +45,25 @@ end
       @challenge = Challenge.find_by(id: params[:challenge_id])
       @contest = @challenge.contest
       @Team = team_user(current_user,@contest)
-      if Time.now > @contest.ends
-          flash[:notice] = "Contest done !"
+      if Time.now > @contest.ends or Time.now < @contest.begins
+          flash[:notice] = "Contest disabled!"
           redirect_to contest_path(@contest)
-      end
-      if(@challenge.flag == challenge_params[:flag])
-        @Team.score += @challenge.score
-        @Team.challenges_ids.push(@challenge.id)
-        @Team.save
-        redirect_to contest_path(@contest)
       else
-        @Team.fault += 1
-        @Team.save
-        message  = "Wrong Flag. "
-        flash[:danger] = message
-        redirect_to challenge_path(@challenge)
+        if(@challenge.flag == challenge_params[:flag])
+          @Team.score += @challenge.score
+          @Team.challenges_ids.push(@challenge.id)
+          @Team.save
+          redirect_to contest_path(@contest)
+        else
+          @Team.fault += 1
+          @Team.save
+          message  = "Wrong Flag. "
+          flash[:danger] = message
+          redirect_to challenge_path(@challenge)
+        end
       end
     else
-      message  = "Wrong Flag. "
+      message  = "Login First!"
       flash[:danger] = message
       redirect_to root_path
     end
@@ -87,6 +94,6 @@ end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def challenge_params
-      params.require(:challenge).permit(:name, :description, :flag, :attachement, :contest_id, :category_id)
+      params.require(:challenge).permit(:name, :description, :flag, :attachement, :score, :contest_id, :category_id)
     end
 end

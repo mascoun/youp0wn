@@ -3,7 +3,11 @@ class UsersController < InheritedResources::Base
  wrap_parameters :user, include: [:username, :password, :password_confirmation]
 
     def new
+      if logged_in?
+        redirect_to root_path
+      else
         @user = User.new
+      end
     end
               #############################################################################
 

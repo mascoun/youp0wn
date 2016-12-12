@@ -1,3 +1,5 @@
+<% provide(:title, 'New Challenge') %>
+
      <div class="row">
         <div class="col-md-12">
 
@@ -52,6 +54,16 @@
               <div class="col-md-8 col-sm-9" >
 
       <%= f.date_field :attachement, class: "form-control", placeholder: "Attachement..." %>
+            </div>
+
+        </div>
+
+        <div class="form-group">
+        <%= f.label :score, 'Score <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9" >
+
+      <%= f.number_field :score, class: "form-control", placeholder: "Challenge Score..." %>
             </div>
 
         </div>
