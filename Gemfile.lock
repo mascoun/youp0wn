@@ -27,6 +27,12 @@ GIT
       railties (>= 3.2, < 5.1)
       responders
 
+GIT
+  remote: git://github.com/paolochiodi/htmlcompressor.git
+  revision: d87551e23f07ee26cb37029c08ee1f5bdcbf3503
+  specs:
+    htmlcompressor (0.3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -78,6 +84,11 @@ GEM
       thor (~> 0.19)
     builder (3.2.2)
     byebug (9.0.6)
+    carrierwave (0.10.0)
+      activemodel (>= 3.2.0)
+      activesupport (>= 3.2.0)
+      json (>= 1.7)
+      mime-types (>= 1.16)
     climate_control (0.0.3)
       activesupport (>= 3.0)
     cloudflare (2.1.0)
@@ -240,8 +251,10 @@ DEPENDENCIES
   autoprefixer-rails
   bcrypt (~> 3.1.7)
   byebug
+  carrierwave
   cloudflare
   dotenv-rails
+  htmlcompressor!
   inherited_resources!
   jbuilder (~> 2.5)
   jquery-rails

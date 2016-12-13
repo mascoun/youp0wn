@@ -6,7 +6,7 @@ gem 'rails',          '5.0.0.1'
 gem 'rake', '~> 12.0'
 # BootStrap
 #gem 'bootstrap-sass', '~> 3.3.7'
-
+gem 'carrierwave'
 gem 'autoprefixer-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
@@ -46,6 +46,8 @@ gem "paperclip"
 
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
+
+gem 'htmlcompressor', github: 'paolochiodi/htmlcompressor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

@@ -1,31 +1,40 @@
-<p id="notice"><%= notice %></p>
+<div class="row">
+<div class="col-md-12">
 
 <h1>Teams</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Name</th>
       <th>Score</th>
-      <th>Challenges ids</th>
-      <th colspan="3"></th>
+      <th>Wrong Answers</th>
+      <th colspan="3">Solved Challenges</th>
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="score">
     <% @teams.each do |team| %>
       <tr>
         <td><%= team.name %></td>
         <td><%= team.score %></td>
-        <td><%= team.challenges_ids %></td>
-        <td><%= link_to 'Show', contest_team_path(contest_id: team.contest.id,id: team) %></td>
-        <td><%= link_to 'Edit', edit_contest_team_path(contest_id: team.contest.id,id: team) %></td>
-        <td><%= link_to 'Destroy', contest_team_path(contest_id: team.contest.id,id: team), method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= team.fault %></td>
+        <td><ul class="list-group">
+          <% team.contest.challenges.each do |challenge| %>
+            <% if team.challenges_ids.include? challenge.id %>
+              <li class="list-group-item"> <%= challenge.name %></li>
+            <% end %>
+          <% end %>
+          </ul>
+        </td>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Team', new_contest_team_path %>
+</div>
+</div>
+ <script type="text/javascript">
+            setTimeout(Refresh, (1000 * 60));
+            function Refresh()  {
+                     location.reload();
+            };
+        </script>

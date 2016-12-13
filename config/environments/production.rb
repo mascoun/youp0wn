@@ -21,6 +21,28 @@ Rails.application.configure do
   # Compress JavaScripts and CSS.
   config.assets.css_compressor = :yui
   config.assets.js_compressor = :uglifier
+  config.middleware.use HtmlCompressor::Rack, {
+    :enabled => true,
+    :remove_spaces_inside_tags => true,
+    :remove_multi_spaces => true,
+    :remove_comments => true,
+    :remove_intertag_spaces => true,
+    :remove_quotes => false,
+    :compress_css => true,
+    :compress_javascript => true,
+    :simple_doctype => false,
+    :remove_script_attributes => false,
+    :remove_style_attributes => false,
+    :remove_link_attributes => false,
+    :remove_form_attributes => false,
+    :remove_input_attributes => false,
+    :remove_javascript_protocol => false,
+    :remove_http_protocol => false,
+    :remove_https_protocol => false,
+    :preserve_line_breaks => false,
+    :simple_boolean_attributes => false,
+    :compress_js_templates => true
+  }
   # config.assets.css_compressor = :sass
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.

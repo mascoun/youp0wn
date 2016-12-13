@@ -6,7 +6,7 @@
   <p class="lead"> <%= @contest.description %>
   </p>
 <div class="col-md-12">
-<% if Time.now > @contest.begins and Time.now < @contest.begins %>
+<% if Time.now < @contest.begins and Time.now < @contest.begins %>
 <div data-toggle="countdown" data-time="<%= @contest.begins.to_time.strftime("%Y-%m-%d %H:%M:%S") %>"></div>
 <% end %>
 </div>
@@ -16,7 +16,7 @@ $(function () {
 $('[data-toggle="countdown"]').each(function() {
     var momentDate = moment($(this).attr("data-time"), 'YYYY-MM-DD HH:mm:ss');
     var newYear = momentDate.toDate();
-    $(this).countdown({until: newYear});
+    $(this).countdown({until: newYear,onExpiry:function() {location.reload();}});
 });
 });
 </script>
@@ -35,6 +35,32 @@ $('[data-toggle="countdown"]').each(function() {
     </div>
     </div>
     <% else %>
+        <% if Time.now < @contest.begins %>
+            <div class="col-md-8 col-md-offset-2">
+        <div class="panel panel-default">
+            <div class="panel-hd text-center">Participants</div>
+          <div class="panel-body">
+            <table class="table">
+            <% i = 0
+            @contest.teams.order(score: :desc, fault: :desc).first(5).each do |team| %>
+                <tr>
+                    <td><%= i = i+1 %></td>
+                    <th><%= team.name %></th>
+                    <% i = 0
+                    team.users.each do |user| %>
+                    <td><%= user.username %><% i = i +1%></td>
+                    <% end %>
+                    <% (3-i).times do %>
+                        <td></td>
+                    <% end %>
+                </tr>
+            <% end %>
+            </table>
+          </div>
+        </div>
+    </div>
+
+        <% else %>
     <div class="col-md-8">
         <% if @contest.challenges.count != 0 %>
         <table class="table challenges-table">
@@ -65,9 +91,9 @@ $('[data-toggle="countdown"]').each(function() {
     </div>
     <div class="col-md-4">
         <div class="panel panel-default">
-            <div class="panel-hd text-center">Current Rank</div>
+            <div class="panel-hd text-center"><a href="<%= contest_teams_path(@contest) %>">Current Rank</a></div>
           <div class="panel-body">
-            <table class="table">
+            <table class="table" id="score">
             <% i = 0
             @contest.teams.order(score: :desc, fault: :desc).first(5).each do |team| %>
                 <tr>
@@ -79,11 +105,25 @@ $('[data-toggle="countdown"]').each(function() {
             </table>
           </div>
         </div>
+        <script type="text/javascript">
+            setTimeout(Refresh, (1000 * 60));
+            function Refresh() {
+               $.getJSON("<%= contest_teams_url(@contest, :format => 'json') %>" ,function(response) {
+                      var items = [];
+                      $.each( response, function( key, val ) {
+                        items.push( "<td>" + (key+1) + "</td><td>" + val.name + "</td><td>" + val.score + "</td>" );
+                      });
+                      $("#score").html("");
+                        $("<tr/>", {
+                            html: items.join( "" )
+                        }).appendTo($("#score"));
+                    setTimeout(Refresh , (1000 * 60))
+                });
+            }
 
-
-
-
+        </script>
     </div>
+    <% end %>
     <% end %>
 <% end %>
 

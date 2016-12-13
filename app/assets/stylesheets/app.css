@@ -184,7 +184,9 @@ input.upload {
     font-weight: 700;
     min-height: 50px;
 }
-
+.panel-hd a {
+  text-decoration: none;
+}
 .challenge-done {
 background: #548DFE;
 border-radius: 50%;

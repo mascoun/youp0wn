@@ -16,19 +16,22 @@ end
     @contest = @challenge.contest
     if not logged_in?
       redirect_to @contest
-    end
-    if not has_team_in_contest(current_user,@contest)
-      redirect_to @contest
-    end
-      if Time.now < @contest.begins
-          flash[:notice] = "Contest haven't start yet."
-          redirect_to contest_path(@contest)
+    else
+      if not has_team_in_contest(current_user,@contest)
+       redirect_to @contest
+      else
+        if Time.now < @contest.begins
+            flash[:notice] = "Contest haven't start yet."
+            redirect_to contest_path(@contest)
+        else
+          if team_user(current_user,@challenge.contest).challenges_ids.include? @challenge.id
+            flash[:warning] = "You have already taken that challenge."
+            redirect_to contest_path(@contest)
+          end
+          @challengeTest = Challenge.new
+        end
       end
-    if team_user(current_user,@challenge.contest).challenges_ids.include? @challenge.id
-      flash[:warning] = "You have already taken that challenge."
-      redirect_to contest_path(@contest)
     end
-    @challengeTest = Challenge.new
   end
 
   def new

@@ -1,13 +1,18 @@
 <% provide(:title, 'Contests') %>
+<div class="bg" style="background-color: #00020C;">
+</div>
 
+<div class="jumbotron">
+    <h1>Contests</h1>
+  <p class="lead"></p>
+  </div>
      <div class="row">
         <div class="col-md-12">
         <% if logged_in? && current_user.superuser? %>
     <%= link_to 'New Contest', new_contest_path , class: "btn btn-info pull-right"%>
+        <hr style="width:50%;"/>
         <% end %>
-<h1>Contests</h1>
 </div>
-
 <div class="col-md-12">
 <% if @contests.count == 0 %>
  <div class="col-md-6 col-md-offset-3">
