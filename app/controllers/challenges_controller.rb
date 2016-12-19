@@ -13,7 +13,7 @@ end
 
   def show
     @challenge = Challenge.find_by(id: params[:id])
-    @contest = @challenge.contest
+    @contest = Contest.find_by(id: params[:contest_id])
     if not logged_in?
       redirect_to @contest
     else
@@ -46,7 +46,7 @@ end
   def flag
     if logged_in?
       @challenge = Challenge.find_by(id: params[:challenge_id])
-      @contest = @challenge.contest
+      @contest = Contest.find_by(id: params[:contest_id])
       @Team = team_user(current_user,@contest)
       if Time.now > @contest.ends or Time.now < @contest.begins
           flash[:notice] = "Contest disabled!"

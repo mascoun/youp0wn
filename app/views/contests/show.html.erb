@@ -146,6 +146,26 @@ $('[data-toggle="countdown"]').each(function() {
     </div>
     <% end %>
     <% end %>
+<% else %>
+<% if Time.now > @contest.ends %>
+                <div class="col-md-12">
+                        <table class="table">
+                        <thead>
+                        <tr><th>Team Name</th><th>Score</th></tr>
+                        </thead>
+                        <tbody>
+                        <% @teams.each do |team| %>
+                                <% if team.id != 5 %>
+                                <tr>
+                                <td><%= team.name %></td>
+                                <td><%= team.score %></td>
+                                </tr>
+                                <%end%>
+                        <% end %>
+                        </tbody>
+                        </table>
+                </div>
+<% end %>
 <% end %>
 
 </div>

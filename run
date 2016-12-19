@@ -1,0 +1,4 @@
+#!/bin/bash
+thin start -p 443 --ssl --ssl-key-file ~/.ssl/youp0wn.key --ssl-cert-file ~/.ssl/youp0wn.crt &
+
+

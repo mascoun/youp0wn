@@ -1,5 +1,9 @@
 Rails.application.configure do
-  # Settings specified here will take precedence over those in config/application.rb.
+  require 'rack-ssl-enforcer'
+  #require 'rack-ssl'
+   config.middleware.use Rack::SslEnforcer
+   config.middleware.insert_before ActionDispatch::Cookies, Rack::SSL, exclude: ->(env) { !Rack::Request.new(env).ssl? }, hsts: false
+   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -63,8 +67,8 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ 'http://example.com', /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
-
+   config.force_ssl = true
+   #config.ssl_options = { redirect: false }
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
   config.log_level = :debug

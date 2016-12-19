@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161203205522) do
+ActiveRecord::Schema.define(version: 20161219131209) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -49,14 +49,40 @@ ActiveRecord::Schema.define(version: 20161203205522) do
     t.index ["contest_id"], name: "index_challenges_on_contest_id"
   end
 
+  create_table "challenges_contests", id: false, force: :cascade do |t|
+    t.integer "challenge_id"
+    t.integer "contest_id"
+    t.index ["challenge_id", "contest_id"], name: "index_challenges_contests_on_challenge_id_and_contest_id"
+  end
+
   create_table "contests", force: :cascade do |t|
-    t.string   "name",                         null: false
-    t.text     "description",                  null: false
-    t.datetime "begins",                       null: false
-    t.datetime "ends",                         null: false
-    t.binary   "photo",       limit: 10485760
-    t.datetime "created_at",                   null: false
-    t.datetime "updated_at",                   null: false
+    t.string   "name",                              null: false
+    t.text     "description",                       null: false
+    t.datetime "begins",                            null: false
+    t.datetime "ends",                              null: false
+    t.binary   "photo",            limit: 10485760
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.integer  "team_user_number"
+    t.boolean  "open"
+  end
+
+  create_table "teams", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "score",          default: 0
+    t.integer  "contest_id"
+    t.integer  "fault",          default: 0
+    t.text     "challenges_ids", default: "--- []\n"
+    t.string   "join_digest"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
+    t.index ["contest_id"], name: "index_teams_on_contest_id"
+  end
+
+  create_table "teams_users", id: false, force: :cascade do |t|
+    t.integer "team_id"
+    t.integer "user_id"
+    t.index ["team_id", "user_id"], name: "index_teams_users_on_team_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|

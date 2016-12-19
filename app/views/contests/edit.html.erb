@@ -1,0 +1,95 @@
+<% provide(:title, 'New Contest') %>
+
+     <div class="row">
+        <div class="col-md-12">
+
+<h1>New Contest</h1>
+
+   <hr>
+<%= form_for(@contest, html: { class: "form-horizontal"}) do |f| %>
+
+     <% if @contest.errors.any? %>
+      <div class="alert alert-danger">
+        The form contains <%= pluralize(@contest.errors.count, "error") %>.
+
+      <ul>
+      <% @contest.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+      </div>
+    <% end %>
+
+
+        <div class="form-group">
+        <%= f.label :name, 'Contest Name <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_field :name, class: "form-control", placeholder: "Contest Name" %>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :description, 'Contest Description <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.text_area :description, class: "form-control", placeholder: "Contest Description" %>
+          </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :begins, 'Begins Date <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+               <div class="col-md-8 col-sm-9" id="BeginsDate">
+                    <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+      <%= f.date_field :begins, class: "form-control", placeholder: "Begins Date" %>
+            </div>
+            </div>
+        </div>
+
+
+        <div class="form-group">
+        <%= f.label :ends, 'Ends Date <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9" id="EndsDate">
+                    <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-calendar"></i></span>
+      <%= f.date_field :ends, class: "form-control", placeholder: "Ends Date" %>
+            </div>
+            </div>
+
+        </div>
+   <script type="text/javascript">
+            $(function () {
+                $('#BeginsDate input').datetimepicker({format: 'DD/MM/YYYY HH:mm',minDate: 0});
+                $('#EndsDate input').datetimepicker({format: 'DD/MM/YYYY HH:mm',minDate: 0});
+            });
+        </script>
+
+        <div class="form-group">
+        <%= f.label :photo, 'Contest Photo <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
+
+              <div class="col-md-8 col-sm-9">
+      <%= f.file_field :photo, class: "form-control"%>
+          </div>
+        </div>
+
+  <div class="form-group">
+          <div class="col-xs-offset-3 col-xs-10">
+            <%= f.submit value:"Create Contest", class:"btn btn-info" %>
+            <%= link_to 'Back', contests_path, class:"btn btn-default" %>
+          </div>
+        </div>
+<% end %>
+
+
+
+
+
+
+
+</div>
+</div>

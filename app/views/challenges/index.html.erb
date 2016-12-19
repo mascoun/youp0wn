@@ -21,7 +21,7 @@
         <td><%= challenge.description %></td>
         <td><%= challenge.flag %></td>
         <td><%= challenge.attachement %></td>
-        <td><%= challenge.contest.name %></td>
+        <td><% challenge.contests.each do |c| %> <%= c.name %> - <% end %></td>
         <td><%= link_to 'Show', challenge %></td>
         <td><%= link_to 'Edit', edit_challenge_path(challenge) %></td>
         <td><%= link_to 'Destroy', challenge, method: :delete, data: { confirm: 'Are you sure?' } %></td>

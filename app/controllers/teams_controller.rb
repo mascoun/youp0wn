@@ -7,8 +7,9 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all.order(score: :desc).order(fault: :asc)
+    #@teams = Team.all.order(score: :desc).order(fault: :asc)
     @contest = Contest.find_by(id: params[:contest_id])
+    @teams = @contest.teams.order(score: :desc).order(fault: :asc)
   end
 
 

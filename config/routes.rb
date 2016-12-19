@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
  match '/users/json', to: 'users#json', :via => :get
 
-  resources :challenges
+  resources :challenges, only: [:index, :create, :edit, :new, :update]
   resources :contests
   resources :categories
   resources :users
@@ -18,6 +18,9 @@ Rails.application.routes.draw do
     #member do
      #  put "like", to: "products#upvote"
      #end
+    resources :challenges, only: :show do
+        post '/flag', to: "challenges#flag"
+    end
     resources :teams do
           get    '/join/:token',   to: 'teams#join', as: :join
     end
@@ -29,15 +32,10 @@ Rails.application.routes.draw do
     root 'static#home'
     match '/signup', :to => 'users#new', :via => :get
     match '/signup', :to => 'users#create', :via => :post
-
+    
     get    '/login',   to: 'sessions#new'
     post   '/login',   to: 'sessions#create'
     delete '/logout',  to: 'sessions#destroy'
-
-    resources :challenges do
-      post '/flag', to: "challenges#flag"
-    end
-
 
    # resources :contests do
     #  get '/image', to: "contests#image"

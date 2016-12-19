@@ -37,6 +37,9 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem "recaptcha", '~> 4.0.0',  require: "recaptcha/rails"
 
+gem 'rack-ssl'
+gem 'rack-ssl-enforcer'
+gem 'thin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
