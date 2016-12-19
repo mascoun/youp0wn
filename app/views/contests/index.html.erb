@@ -23,14 +23,19 @@
 </div>
 <% end %>
 <% @contests.each do |contest| %>
+<div style="position:relative;">
 <div class="bg" style="background-image: url(<%= contest_image_path(contest) %>);"></div>
 <div class="jumbotron">
   <h1><%= contest.name %></h1>
   <p class="lead"> <%= contest.description %></p>
-<%= link_to "Join contest!", contest_path(contest), class: "btn btn-lg btn-primary" if Time.now < contest.ends %>
+<%= if Time.now < contest.ends
+ link_to "Join contest!", contest_path(contest), class: "btn btn-lg btn-primary" else
+ link_to "Scoreboard", contest_path(contest), class: "btn btn-lg btn-info"
+end %>
 <div class="col-md-3 pull-right">
 Start on <%= contest.begins.to_time.strftime("%B %e at %l:%M"); %><br/>
 Ends on <%= contest.ends.to_time.strftime("%B %e at %l:%M"); %>
+</div>
 </div>
 </div>
 <% end %>

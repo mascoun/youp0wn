@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161213123722) do
+ActiveRecord::Schema.define(version: 20161203205522) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(version: 20161213123722) do
 
   create_table "challenges", force: :cascade do |t|
     t.string   "name"
-    t.string   "text"
+    t.string   "description"
     t.string   "flag"
     t.string   "attachement"
     t.integer  "score"
@@ -45,7 +45,6 @@ ActiveRecord::Schema.define(version: 20161213123722) do
     t.integer  "category_id"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
-    t.text     "description"
     t.index ["category_id"], name: "index_challenges_on_category_id"
     t.index ["contest_id"], name: "index_challenges_on_contest_id"
   end
@@ -58,24 +57,6 @@ ActiveRecord::Schema.define(version: 20161213123722) do
     t.binary   "photo",       limit: 10485760
     t.datetime "created_at",                   null: false
     t.datetime "updated_at",                   null: false
-  end
-
-  create_table "teams", force: :cascade do |t|
-    t.string   "name"
-    t.integer  "score",          default: 0
-    t.integer  "contest_id"
-    t.integer  "fault",          default: 0
-    t.text     "challenges_ids", default: "--- []\n"
-    t.string   "join_digest"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.index ["contest_id"], name: "index_teams_on_contest_id"
-  end
-
-  create_table "teams_users", id: false, force: :cascade do |t|
-    t.integer "team_id"
-    t.integer "user_id"
-    t.index ["team_id", "user_id"], name: "index_teams_users_on_team_id_and_user_id"
   end
 
   create_table "users", force: :cascade do |t|

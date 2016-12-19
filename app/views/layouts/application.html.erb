@@ -3,6 +3,11 @@
   <head>
     <title><%= full_title(yield(:title)) %></title>
     <link rel="icon" type="image/png" href="<%= image_path('icon.png') %>" />
+     <meta property="og:url" content="<%= root_url %>" />
+     <meta property="og:type" content="website" />
+     <meta property="og:title" content="<%= full_title(yield(:title)) %>"/>
+     <meta property="og:description" content="Youp0wn is a platform that offers you challenges in multiple fields regarding cyber security, such as cryptography and forensics.There are different levels of difficulties in the challenges, and for every challenge you solve you get a certain number of points.Get started, and climb onto the scoreboard."/>
+     <meta property="og:image" content="<%#= if Contest.lag contest_image_url(Contest.last) %>"/>
     <%= stylesheet_link_tag "application", media: "all",
                                            "data-turbolinks-track" => true %>
     <%= javascript_include_tag "application", "data-turbolinks-track" => true %>

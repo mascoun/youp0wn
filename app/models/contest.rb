@@ -1,5 +1,5 @@
 class Contest < ApplicationRecord
-    has_many :challenges
+    has_and_belongs_to_many :challenges
     has_many :teams
 
 

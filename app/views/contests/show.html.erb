@@ -28,8 +28,12 @@ $('[data-toggle="countdown"]').each(function() {
             <div class="panel panel-default panel-info">
             <div class="panel-heading">You P0WN</div>
           <div class="panel-body text-center">
-           <p>You need to join or create a team first</p>
+		<% if @contest.open? %>
+           <p>You need to join or create a team first!</p>
           <%= link_to "New Team",new_contest_team_url(@contest.id), class: "btn btn-primary" %>
+		<% else %>
+           <p>You need to join or create a team first! Contact an Administrator</p>
+	        <% end %>
 </div>
             </div>
     </div>
@@ -42,7 +46,7 @@ $('[data-toggle="countdown"]').each(function() {
           <div class="panel-body">
             <table class="table">
             <% i = 0
-            @contest.teams.order(score: :desc, fault: :desc).first(5).each do |team| %>
+            @teams.first(5).each do |team| %>
                 <tr>
                     <td><%= i = i+1 %></td>
                     <th><%= team.name %></th>
@@ -59,7 +63,24 @@ $('[data-toggle="countdown"]').each(function() {
           </div>
         </div>
     </div>
-
+	<% elsif Time.now > @contest.ends %>
+		<div class="col-md-12">
+			<table class="table">
+			<thead>
+			<tr><th>Team Name</th><th>Score</th></tr>
+			</thead>
+			<tbody>
+			<% @teams.each do |team| %>
+				<% if team.id != 5 %>
+				<tr>
+				<td><%= team.name %></td>
+				<td><%= team.score %></td>
+				</tr>
+				<%end%>
+			<% end %>
+			</tbody>
+			</table>
+		</div>
         <% else %>
     <div class="col-md-8">
         <% if @contest.challenges.count != 0 %>
@@ -95,13 +116,13 @@ $('[data-toggle="countdown"]').each(function() {
           <div class="panel-body">
             <table class="table" id="score">
             <% i = 0
-            @contest.teams.order(score: :desc, fault: :desc).first(5).each do |team| %>
-                <tr>
+            @teams.first(6).each do |team| %>
+      <% if team.id != 5 %>          <tr>
                     <td><%= i = i+1 %></td>
                     <td><%= team.name %></td>
                     <td><%= team.score %></td>
                 </tr>
-            <% end %>
+            <% end %><% end %>
             </table>
           </div>
         </div>

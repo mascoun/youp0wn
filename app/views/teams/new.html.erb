@@ -35,7 +35,7 @@
       <%= f.text_field :leader, class: "form-control", placeholder: "Team Leader", value: current_user.username, disabled: true%>
           </div>
         </div>
-
+<% if @contest.team_user_number > 1 %>
          <div class="form-group">
         <%= f.label :member, 'Team Members'.html_safe , class: "control-label col-sm-3" %>
               <div class="col-md-8 col-sm-9">
@@ -46,11 +46,14 @@
               $("#members").tokenInput("/users/json",{
                 theme: "facebook",
                 preventDuplicates: true,
-                tokenLimit: 3,
+                tokenLimit: <%= @contest.team_user_number - 1 %>,
                 resultsFormatter: function(item){ return "<li>" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.firstname + " " + item.lastname + "</div><div class='email'>" + item.name + "</div></div></li>" },
                 tokenFormatter: function(item) { return "<li><p>" + item.firstname + " <b style='color: red'>" + item.lastname + "</b></p></li>" }
               });
         </script>
+<% else %>
+      <%= f.hidden_field :member, value: ""%>
+<% end %>
  <div class="form-group">
           <div class="col-xs-offset-3 col-xs-10">
                   <%= f.submit class: "btn btn-primary"%>

@@ -7,7 +7,8 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.all.order(score: :desc).order(fault: :asc)
+    @contest = Contest.find_by(id: params[:contest_id])
   end
 
 
@@ -25,6 +26,10 @@ class TeamsController < ApplicationController
         message = "Please login before create a team."
           flash[:warning] = message
          redirect_to @contest
+      elsif @contest.open == false and current_user.superuser == false
+	message = 'Contest isn\'t open. Contact an administrator to join a team'
+        flash[:danger] = message
+        redirect_to @contest
       elsif has_team_in_contest(current_user,@contest)
         message = 'You have already a team.'
         flash[:warning] = message
@@ -37,27 +42,38 @@ class TeamsController < ApplicationController
   end
 
   def create
-    @members = team_params[:member].split(',')
-    #team_params = team_params.delete(:member)
-    params[:team].delete :member
-    @team = Team.new(team_params)
     @contest = Contest.find_by(id: params[:contest_id])
-    @team.users << current_user
+    if @contest.open == true or current_user.superuser == true
+  	@members = team_params[:member].split(',')
+	#team_params = team_params.delete(:member)
+	params[:team].delete :member	
+	
+      	@team = Team.new(team_params)
+    if @contest.open == true
+    	@team.users << current_user
+    end
     @team.contest = @contest
-
-      if @team.save
-         message = 'Team was successfully created.'
-        flash[:success] = message
-
-      @members.each do |member|
-          @user = User.find_by(id: member)
-          UserMailer.teamjoin(@user,@team).deliver_now if not @user.nil?
-      end
-        redirect_to contest_teams_path
-      else
-        render :new
-      end
-  end
+     if @members.count >= @contest.team_user_number
+	message = 'You have already a team.'
+        flash[:warning] = message
+        redirect_to @contest
+     else
+     	 if @team.save
+	        message = 'Team was successfully created.'
+	        flash[:success] = message
+     		@members.each do |member|
+		  @user = User.find_by(id: member)
+		  UserMailer.teamjoin(@user,@team).deliver_now if not @user.nil?
+         	end
+         	redirect_to contest_teams_path
+     	 end
+     end
+   else
+        message = 'You cannot add a team.'
+	flash[:danger] = message
+        redirect_to contest_path
+   end
+end
 
   def join
     if not logged_in?
@@ -113,3 +129,4 @@ class TeamsController < ApplicationController
       params.require(:team).permit(:name, :member)
     end
 end
+

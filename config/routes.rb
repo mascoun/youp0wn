@@ -23,8 +23,7 @@ Rails.application.routes.draw do
     end
     get '/image', to: "contests#image"
    end
-  ActiveAdmin.routes(self)
-
+ 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
     root 'static#home'

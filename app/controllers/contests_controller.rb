@@ -1,4 +1,4 @@
-class ContestsController < InheritedResources::Base
+class ContestsController < ApplicationController
     require 'date'
     include UsersHelper
 
@@ -17,9 +17,12 @@ class ContestsController < InheritedResources::Base
             redirect_to login_path
         else
             @contest = Contest.find_by(id: params[:id])
+	    @teams = Team.all.order(score: :desc).order(fault: :asc)
         end
     end
-
+    def index
+ 	@contests = Contest.all
+    end
     def create
         contest_params[:begins] = DateTime.parse(contest_params[:begins])
         contest_params[:ends] = DateTime.parse(contest_params[:ends])

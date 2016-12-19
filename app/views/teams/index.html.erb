@@ -15,18 +15,20 @@
 
   <tbody id="score">
     <% @teams.each do |team| %>
-      <tr>
+     	<% if team.id != 5 %>
+	 <tr>
         <td><%= team.name %></td>
         <td><%= team.score %></td>
         <td><%= team.fault %></td>
-        <td><ul class="list-group">
-          <% team.contest.challenges.each do |challenge| %>
+        <td>
+          <% @contest.challenges.each do |challenge| %>
             <% if team.challenges_ids.include? challenge.id %>
-              <li class="list-group-item"> <%= challenge.name %></li>
+               <%= challenge.name %> - 
             <% end %>
           <% end %>
-          </ul>
         </td>
+	</tr>
+	<% end %>
     <% end %>
   </tbody>
 </table>

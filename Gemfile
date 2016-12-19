@@ -37,15 +37,10 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem "recaptcha", '~> 4.0.0',  require: "recaptcha/rails"
 
-gem 'cloudflare'
-
-gem "paperclip"
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
-gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', github: 'activeadmin'
 
 gem 'htmlcompressor', github: 'paolochiodi/htmlcompressor'
 

@@ -1,4 +1,4 @@
-class UsersController < InheritedResources::Base
+class UsersController < ApplicationController
 
  wrap_parameters :user, include: [:username, :password, :password_confirmation]
 
@@ -10,7 +10,17 @@ class UsersController < InheritedResources::Base
       end
     end
               #############################################################################
-
+   def index
+	if logged_in?
+		if current_user.superuser == true
+			@users = User.all
+		else
+			redirect_to root_path
+ 		end
+	else
+		redirect_to root_path
+	end
+  end
 
     def create
       captcha_message = "The data you entered for the CAPTCHA wasn't correct.  Please try again"
@@ -29,6 +39,7 @@ class UsersController < InheritedResources::Base
 
     def edit
       @user = User.find(params[:id])
+	redirect_to root_path
     end
               #############################################################################
 
@@ -44,6 +55,9 @@ class UsersController < InheritedResources::Base
       end
     end
 
+	def show
+		@user = User.find(params[:id])
+	end
               #############################################################################
 
 
