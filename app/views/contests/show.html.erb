@@ -98,7 +98,7 @@ $('[data-toggle="countdown"]').each(function() {
                 </td>
 
             <%else %>
-                <td><%= link_to challenge.name,challenge %>
+                <td><%= link_to challenge.name,contest_challenge_path(@contest,challenge) %>
                     <div class="category">
                         <% if not challenge.category.nil? %> <%= challenge.category.name %> <% end %>
                     </div>

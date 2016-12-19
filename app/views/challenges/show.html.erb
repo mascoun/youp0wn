@@ -4,7 +4,7 @@
 <div class="jumbotron">
   <h1><%= @challenge.name %></h1>
   <p class="lead"> <%= @challenge.category.name %> <br/>
-  <%= @challenge.contest.name %>
+  <%= @contest.name %>
   </p>
 </div>
 <div class="row">
@@ -23,7 +23,7 @@
 
 </p>
 <% end %>
-<%= form_for(@challengeTest, url: challenge_flag_url(@challenge), html: { class: "form-horizontal"}) do |f| %>
+<%= form_for(@challengeTest, url: contest_challenge_flag_url(@contest,@challenge), html: { class: "form-horizontal"}) do |f| %>
 <div class="form-group">
         <%= f.label :flag, 'Flag <span class="text-danger">*</span>'.html_safe , class: "control-label col-sm-3" %>
 
@@ -34,7 +34,7 @@
 <div class="form-group">
           <div class="col-xs-offset-3 col-xs-10">
             <%= f.submit value: "Check Flag" , class:"btn btn-primary"%>
-            <%= link_to 'Back', contest_path(@challenge.contest), class:"btn btn-default" %>
+            <%= link_to 'Back', contest_path(@contest), class:"btn btn-default" %>
           </div>
         </div>
 <% end %>

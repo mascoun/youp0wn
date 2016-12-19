@@ -24,7 +24,7 @@ end
             flash[:notice] = "Contest haven't start yet."
             redirect_to contest_path(@contest)
         else
-          if team_user(current_user,@challenge.contest).challenges_ids.include? @challenge.id
+          if team_user(current_user,@contest).challenges_ids.include? @challenge.id
             flash[:warning] = "You have already taken that challenge."
             redirect_to contest_path(@contest)
           end
@@ -62,7 +62,7 @@ end
           @Team.save
           message  = "Wrong Flag. "
           flash[:danger] = message
-          redirect_to challenge_path(@challenge)
+          redirect_to contest_challenge_path(@contest,@challenge)
         end
       end
     else
