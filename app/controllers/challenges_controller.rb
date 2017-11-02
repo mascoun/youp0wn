@@ -71,11 +71,23 @@ end
       redirect_to root_path
     end
   end
-
+  def download
+   @challenge = Challenge.find_by(id: params[:challenge_id])
+   extension= @challenge.attachement.split('.')
+	send_file Rails.root.join('public','upload',@challenge.attachement),:type=>"application/#{extension[1]}", :x_sendfile=>true
+	
+end
   def create
     @contest = Contest.find_by(id: challenge_params[:contest_id])
     @category = Category.find_by(id: challenge_params[:category_id])
-    @challenge = Challenge.new(challenge_params.merge(:contest => @contest,:category => @category))
+    @challenge = Challenge.new(challenge_params)
+    uploaded_io=params[:challenge][:attachement]
+    File.open(Rails.root.join('public','upload',uploaded_io.original_filename),'wb')do |file|
+    file.write(uploaded_io.read)
+    end
+    @challenge.attachement=uploaded_io.original_filename 
+    @challenge.contests << @contest
+    @challenge.category = @category
     @contest.challenges << @challenge
     @category.challenges << @challenge
     #@challenge.contest = @contest
@@ -83,7 +95,7 @@ end
     #@challenge = @contest.challenges.build(challenge_params)
         respond_to do |format|
           if @challenge.save
-            format.html { redirect_to @challenge, notice: 'Challenge was successfully created.' }
+            format.html { redirect_to contest_challenge_path(@contest,@challenge), notice: 'Challenge was successfully created.' }
             format.json { render :show, status: :created, location: @challenge }
           else
             format.html { render :new }

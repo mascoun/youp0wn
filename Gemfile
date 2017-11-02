@@ -2,8 +2,8 @@ source 'https://rubygems.org'
 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails',          '5.0.0.1'
-gem 'rake', '~> 12.0'
+gem 'rails',          '5.0.2'
+gem 'rake', '~> 12.1'
 # BootStrap
 #gem 'bootstrap-sass', '~> 3.3.7'
 gem 'carrierwave'
@@ -11,7 +11,7 @@ gem 'autoprefixer-rails'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
-gem 'puma', '~> 3.0'
+gem 'puma', '~> 3.10'
 # Use SCSS for stylesheets
 #gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -37,9 +37,6 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'dotenv-rails', :require => 'dotenv/rails-now'
 gem "recaptcha", '~> 4.0.0',  require: "recaptcha/rails"
 
-gem 'rack-ssl'
-gem 'rack-ssl-enforcer'
-gem 'thin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development

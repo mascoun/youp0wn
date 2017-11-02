@@ -20,6 +20,7 @@ Rails.application.routes.draw do
      #end
     resources :challenges, only: :show do
         post '/flag', to: "challenges#flag"
+	post '/download', to: "challenges#download"
     end
     resources :teams do
           get    '/join/:token',   to: 'teams#join', as: :join

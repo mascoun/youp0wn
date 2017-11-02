@@ -19,7 +19,9 @@
 <p>
 
    <strong>Attachement:</strong>
-  <%= @challenge.attachement %>
+   <%=form_for :download,url:contest_challenge_download_path(@contest,@challenge) do |f|%>
+   <%f.submit @challenge.attachement%>
+   <% end %>
 
 </p>
 <% end %>
